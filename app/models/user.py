@@ -1,5 +1,6 @@
 from sqlalchemy import Boolean, String
 from sqlalchemy.orm import Mapped, mapped_column
+from sqlalchemy.orm import relationship
 
 from app.models.base import BaseModel
 
@@ -43,4 +44,10 @@ class User(BaseModel):
         Boolean,
         default=False,
         nullable=False
+    )
+
+    user_roles=relationship(
+        "UserRole",
+        back_populates="user",
+        cascade="all,  delete-orphan"
     )
