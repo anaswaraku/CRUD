@@ -10,16 +10,16 @@ from app.models.mixins import (
 )
 
 
-class Role(
+class Permission(
     UUIDMixin,
     TimestampMixin,
     SoftDeleteMixin,
     Base,
 ):
-    __tablename__ = "roles"
+    __tablename__ = "permissions"
 
-    name: Mapped[str] = mapped_column(
-        String(50),
+    code: Mapped[str] = mapped_column(
+        String(100),
         unique=True,
         index=True,
         nullable=False,
@@ -30,14 +30,8 @@ class Role(
         nullable=True,
     )
 
-    user_roles = relationship(
-        "UserRole",
-        back_populates="role",
-        cascade="all, delete-orphan",
-    )
-
     role_permissions = relationship(
         "RolePermission",
-        back_populates="role",
+        back_populates="permission",
         cascade="all, delete-orphan",
     )
